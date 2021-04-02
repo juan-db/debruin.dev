@@ -3,17 +3,55 @@
 <head>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-	<title>debruin.dev</title>
+	<title>Home</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<style>
 		body {
 			color: white;
-			background-color: #222;
+			background-color: #292929;
 			font-family: Arial, sans-serif;
+			padding: 16px;
+		}
+
+		a:link {
+			color: #A0CFD3;
+		}
+		
+		a:visited {
+			color: #9A7AA0;
+		}
+
+		.container {
+			display: flex;
+			justify-content: center;
+		}
+
+		.links {
+			margin-bottom: 24px;
+			max-width: 300px;
+			width: 100%;
+		}
+
+		.container a {
+			margin: 0 16px;
+		}
+
+		ul {
+			margin-top: 8px;
+			margin-bottom: 24px;
 		}
 	</style>
 </head>
 <body>
-	Hello, world!
+	<div>Internal links</div>
+	<ul>
+		<li><a href="/circle-intercept">Line circle intercept toy</a></li>
+	</ul>
+
+	<div>External links</div>
+	<ul>
+		<li><a href="https://www.linkedin.com/in/juan-de-bruin">LinkedIn</a></li>
+		<li><a href="https://www.github.com/juan-db">GitHub</a></li>
+	</ul>
 </body>
 </html>

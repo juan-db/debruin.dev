@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>Line circle interception visualization</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+<style>
+:root {
+	--text-color: white;
+	--background-color: #292929;
+}
+
+body {
+	padding: 24px;
+	color: var(--text-color);
+	background-color: var(--background-color);
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+canvas#circleline {
+	max-width: 500px;
+	max-height: 500px;
+}
+
+form#parameters {
+	padding: 10px;
+}
+
+form#parameters input {
+	margin: 0 8px 0 2px;
+	max-width: 7em;
+}
+
+form#parameters div.form-section {
+	margin-bottom: 12px;
+}
+
+div#additional-options > div {
+	margin-bottom: 8px;
+}
+
+form#parameters input[type="range"] {
+	min-width: 320px;
+}
+
+/* Hiding via display: none or visibility: hidden might hide elements from screen readers. */
+.visually-hidden {
+	border-width: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+	height: 1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	white-space: nowrap !important;
+	width: 1px !important;
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+		<canvas id="circleline" width="500" height="500">
+			Not supported.
+		</canvas>
+
+		<form id="parameters">
+			<div id="line-equation" class="form-section">
+				<span>Line equation (y = <i>m</i>x + <i>b</i>)</span>
+
+				<fieldset>
+					<legend>m</legend>
+
+					<label for="m-input" class="visually-hidden">m text input</label>
+					<input id="m-input" name="m" type="number" step="0.1" min="-999" max="999" value="1">
+
+					<label for="m-range" class="visually-hidden">m slider</label>
+					<input id="m-range" name="m-range" type="range" step="0.1" min="-10" max="10">
+				</fieldset>
+
+				<fieldset>
+					<legend>b</legend>
+
+					<label for="b-input" class="visually-hidden">b text input</label>
+					<input id="b-input" name="b" type="number" step="1" min="-999" max="999" value="0">
+
+					<label for="b-range" class="visually-hidden">b slider</label>
+					<input type="range" id="b-range" name="b-range" step="1" min="-250" max="250">
+				</fieldset>
+			</div>
+
+			<div id="circle-equation" class="form-section">
+				<span>Circle equation (x<sup>2</sup> + y<sup>2</sup> = <i>r</i><sup>2</sup>)</span>
+
+				<fieldset>
+					<legend>r</legend>
+
+					<label for="r-input" class="visually-hidden">r text input</label>
+					<input id="r-input" name="r" type="number" step="1" max="250" min="0" value="125">
+
+					<label for="r-range" class="visually-hidden">r slider</label>
+					<input id="r-range" name="r-range" type="range" step="1" max="250" min="0">
+				</fieldset>
+			</div>
+
+			<div id="additional-options" class="form-section">
+				<div>Additional options</div>
+
+				<div>
+					<label for="show-axes">Show axes</label>
+					<input id="show-axes" name="show-axes" type="checkbox" checked>
+				</div>
+
+				<div>
+					<label for="theme-select">Theme</label>
+					<select id="theme-select" name="theme">
+						<option value="light">Light</option>
+						<option value="dark" selected="selected">Dark</option>
+						<option value="high-contrast">High contrast</option>
+					</select>
+				</div>
+			</div>
+		</form>
+
+		<script src="main.js"></script>
+	</div>
+</body>
+</html>
