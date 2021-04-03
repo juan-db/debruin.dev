@@ -7,8 +7,10 @@
 let m = 1;
 let b = 1;
 
-// Circle equation: x^2 + y^2 = r^2.
+// Circle equation: (x - p)^2 + (y - q)^2 = r^2.
 let r = 100;
+let p = 0;
+let q = 0;
 
 // Whether to draw the x and y axes.
 let showAxes = false;
@@ -113,42 +115,32 @@ function clear(ctx, color) {
 
 // m and b are the slope and y-intercept of the line.
 // r is the radius of the circle.
-// We assume the circle's centerpoint is at the origin (0, 0).
-function getIntersections(m, b, r) {
-	// Circle: x^2 + y^2 = r^2.
-	// Line: y = mx + b.
-	// Substitute y: x^2 + (mx + b)^2 = r^2
-	// Simplify:
-	// x^2 + (mx + b)(mx + b) = r^2
-	// x^2 + m^2 * x^2 + mxb + mxb + 2b = r^2
-	// (1 + m^2)x^2 + 2mxb + b^2 - r^2 = 0
-	//
-	// A: 1 + m^2
-	// B (from a, b, c, not from the slope equation): 2mb
-	// C: b^2 - r^2
-	// D: B^2 − 4AC
-
-
+// p and q are the circle's x and y offset respectively.
+function getIntersections(m, b, r, p, q) {
 	const A = 1 + m * m;
-	const B = 2 * m * b;
-	const C = b * b - r * r;
+	const B = 2 * (m * b - m * q - p);
+	const C = b * b + q * q - r * r + p * p - 2 * b * q;
 	const D = B * B - 4 * A * C;
 
 	const x = (() => {
-	if (D < 0) {
-		return []; // No intersections.
-	} else if (D == 0) {
-		return [(-B) / (2 * A)]; // Single intersection.
-	} else {
-		return [
-			(-B + Math.sqrt(D)) / (2 * A),
-			(-B - Math.sqrt(D)) / (2 * A)
-		]; // Two intersections.
-	}
+		if (D < 0) {
+			// No intersections.
+			return [];
+		} else if (D == 0) {
+			// Single intersection.
+			return [(-B) / (2 * A)];
+		} else {
+			// Two intersections.
+			return [
+				(-B + Math.sqrt(D)) / (2 * A),
+				(-B - Math.sqrt(D)) / (2 * A)
+			];
+		}
 	})();
 
 	return x.map(i => [i, m * i + b]);
 }
+
 
 // === Program ===================
 
@@ -180,21 +172,21 @@ function redraw() {
 	}
 
 	ctx.strokeStyle = theme.circleColor;
-	circle(ctx, 0, 0, r);
+	circle(ctx, p, q, r);
 
 	ctx.strokeStyle = theme.lineColor;
 	line(ctx, m, b);
 
 	ctx.strokeStyle = theme.intersectionColor;
 	ctx.lineWidth = 6;
-	for (const i of getIntersections(m, b, r)) {
+	for (const i of getIntersections(m, b, r, p, q)) {
 		circle(ctx, ...i, 3);
 	}
 	ctx.lineWidth = 2;
 }
 
 // On input for any of the form fields, update all parameters and redraw the canvas.
-(parameters.m.oninput = parameters.b.oninput = parameters.r.oninput = () => {
+(parameters.m.oninput = parameters.b.oninput = parameters.r.oninput = parameters.p.oninput = parameters.q.oninput = () => {
 	m = +parameters.m.value;
 	if (isNaN(m)) m = 0;
 	parameters['m-range'].value = m;
@@ -207,10 +199,18 @@ function redraw() {
 	if (isNaN(r)) r = 0;
 	parameters['r-range'].value = r;
 
+	p = +parameters.p.value;
+	if (isNaN(p)) p = 0;
+	parameters['p-range'].value = p;
+
+	q = +parameters.q.value;
+	if (isNaN(q)) q = 0;
+	parameters['q-range'].value = q;
+
 	redraw();
 })();
 
-parameters['m-range'].oninput = parameters['b-range'].oninput = parameters['r-range'].oninput = (event) => {
+parameters['m-range'].oninput = parameters['b-range'].oninput = parameters['r-range'].oninput = parameters['p-range'].oninput = parameters['q-range'].oninput = (event) => {
 	m = +parameters['m-range'].value;
 	if (isNaN(m)) m = 0;
 	parameters.m.value = m;
@@ -222,6 +222,14 @@ parameters['m-range'].oninput = parameters['b-range'].oninput = parameters['r-ra
 	r = +parameters['r-range'].value;
 	if (isNaN(r)) r = 0;
 	parameters.r.value = r;
+
+	p = +parameters['p-range'].value;
+	if (isNaN(p)) p = 0;
+	parameters.p.value = p;
+
+	q = +parameters['q-range'].value;
+	if (isNaN(q)) q = 0;
+	parameters.q.value = q;
 
 
 	redraw();
