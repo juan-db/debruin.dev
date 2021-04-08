@@ -3,13 +3,12 @@
 
 <style>
 	.container {
-		min-width: 500px;
-		max-width: 800px;
+		max-width: 720px;
 	}
 </style>
 
 <svelte:head>
-	<title>Home</title>
+	<title>debruin.dev - Home</title>
 </svelte:head>
 
 <div class="flex-container">

@@ -25,10 +25,16 @@
 		padding: 0;
 
 		max-width: 600px;
-		min-width: 500px;
+		min-width: 400px;
 		width: 100%;
 
 		display: flex;
+	}
+
+	@media (max-width: 400px) {
+		ul {
+			min-width: 300px;
+		}
 	}
 
 	/* clearfix */

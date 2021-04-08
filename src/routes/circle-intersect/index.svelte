@@ -130,14 +130,12 @@
 </script>
 
 <svelte:head>
-	<meta name='viewport' content='width=500, initial-scale=0.7'>
-	<title>Line circle intersection visualization</title>
+	<title>debruin.dev - Line circle intersection visualization</title>
 </svelte:head>
 
 <style>
 	.root-container {
 		max-width: 500px;
-		min-width: 500px;
 
 		display: flex;
 		flex-direction: column;
@@ -146,6 +144,8 @@
 	canvas#circle-line {
 		max-width: 500px;
 		max-height: 500px;
+
+		width: 100%;
 
 		margin-bottom: 26px;
 	}
@@ -166,8 +166,8 @@
 	}
 
 	form#parameters {
-		min-width: 500px;
 		max-width: 500px;
+		width: 100%;
 	}
 
 	.form-section {
