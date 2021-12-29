@@ -24,7 +24,7 @@
 		margin: 0;
 		padding: 0;
 
-		max-width: 600px;
+		max-width: 900px;
 		min-width: 400px;
 		width: 100%;
 
@@ -88,8 +88,8 @@
 		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">home</a></li>
 		<li><a aria-current="{segment === 'circle-intersect' ? 'page' : undefined}" href="circle-intersect">circle toy</a></li>
 		<li class="spacer"></li>
-		<li><a href="https://www.github.com/juan-db/debruin.dev">src</a></li>
-		<li><a href="https://www.github.com/juan-db">github</a></li>
-		<li><a href="https://www.linkedin.com/in/juan-de-bruin">linkedin</a></li>
+		<li><a href="https://www.github.com/juan-db/debruin.dev" target="_blank">src</a></li>
+		<li><a href="https://www.github.com/juan-db" target="_blank">github</a></li>
+		<li><a href="https://www.linkedin.com/in/juan-de-bruin" target="_blank">linkedin</a></li>
 	</ul>
 </nav>

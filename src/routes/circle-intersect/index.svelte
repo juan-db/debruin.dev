@@ -76,7 +76,7 @@
 		// Set the origin (0, 0) to the center of the canvas.
 		ctx.translate(canvas.width / 2, canvas.height / 2);
 		// Flip the canvas horizontally.
-		ctx.scale(1, -1);
+		ctx.scale(1.4, -1.4);
 
 		mounted = true;
 
@@ -130,20 +130,20 @@
 </script>
 
 <svelte:head>
-	<title>debruin.dev - Line circle intersection visualization</title>
+	<title>Intersection toy - Juan de Bruin</title>
 </svelte:head>
 
 <style>
 	.root-container {
-		max-width: 500px;
+		max-width: 600px;
 
 		display: flex;
 		flex-direction: column;
 	}
 
 	canvas#circle-line {
-		max-width: 500px;
-		max-height: 500px;
+		max-width: 600px;
+		max-height: 600px;
 
 		width: 100%;
 
@@ -152,21 +152,23 @@
 
 	@media (min-width: 1080px) {
 		.root-container {
-			max-width: 1040px;
-			min-width: 1040px;
+			max-width: 1130px;
+			min-width: 1130px;
 
 			flex-direction: row;
 			justify-content: space-between;
+
+			box-sizing: border-box;
+			padding: 0 0.8em;
 		}
 
 		canvas#circle-line {
 			margin-bottom: 0;
-			margin-top: 10px;
 		}
 	}
 
 	form#parameters {
-		max-width: 500px;
+		max-width: 600px;
 		width: 100%;
 	}
 
@@ -208,7 +210,7 @@
 
 <div class="flex-container">
 	<div class="root-container">
-		<canvas id="circle-line" width="500" height="500" bind:this={canvas}>
+		<canvas id="circle-line" width="600" height="600" bind:this={canvas}>
 			Not supported.
 		</canvas>
 

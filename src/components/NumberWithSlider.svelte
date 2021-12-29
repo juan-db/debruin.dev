@@ -34,6 +34,8 @@
 	input[type="range"] {
 		width: 100%;
 		flex-grow: 1;
+
+		touch-action: none;
 	}
 </style>
 
