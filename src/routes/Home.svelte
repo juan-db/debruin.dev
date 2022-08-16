@@ -65,7 +65,7 @@
 	</p>
 
 	<p>
-		There's also a little <a href="/circle-intersect">circle intersection toy</a> on
+		There's also a little <a href="#circle-intersect">circle intersection toy</a> on
 		this website if you want to check that out.
 	</p>
 

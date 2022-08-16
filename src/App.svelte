@@ -1,19 +1,24 @@
 <script lang="ts">
 	import Home from '/src/routes/Home.svelte';
 	import CircleToy from '/src/routes/CircleIntersect.svelte';
+	import {onMount} from 'svelte';
 
-	$: component = getComponent(window.location.pathname);
+	let component = Home;
 
-	function getComponent(path) {
-		switch (path) {
-			case '/circle-intersect':
-				return CircleToy;
+	onMount(() => {
+		updateComponent();
+	});
 
-			default:
-				return Home;
-		}
+	function handleHashChange(e: HashChangeEvent) {
+		updateComponent();
+	}
+
+	function updateComponent() {
+		component = window.location.hash === '#circle-intersect' ? CircleToy : Home;
 	}
 </script>
+
+<svelte:window on:hashchange={handleHashChange} />
 
 <main>
 	<svelte:component this={component} />
