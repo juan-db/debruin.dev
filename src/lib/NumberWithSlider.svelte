@@ -1,4 +1,6 @@
 <script>
+	// This component only exists to reduce code duplication. This exact pattern is
+	// used a lot, so I extracted it into a component.
 	export let legend;
 	export let name;
 	export let numberAttrs;

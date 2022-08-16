@@ -12,8 +12,8 @@ export function toRadians(degrees) {
  * @param r the radius of the circle.
  * @param p the x offset of the circle.
  * @param q the y offset of the circle.
- * @returns {(Number)[][]} an array of zero to two elements representing all intersections between the given line and
- * circle.
+ * @returns {(Number)[][]} an array of zero to two elements representing all
+ * intersections between the given line and circle.
  */
 export function getLineIntersections(m, b, r, p, q) {
 	const A = 1 + m * m;
@@ -48,10 +48,11 @@ export function getLineIntersections(m, b, r, p, q) {
  * @param r the radius of the circle.
  * @param p the x offset of the circle.
  * @param q the y offset of the circle.
- * @returns {(Number)[][]} an array of zero to two elements representing all intersections between the given ray and
- * circle. The order of the elements in the returned array are determined by which intersection is closest to the origin
- * of the ray. I.e. starting at the origin of the ray (x, y), travelling in angle direction, the first intersection will
- * be first in the array, the second second, etc.
+ * @returns {(Number)[][]} an array of zero to two elements representing all
+ * intersections between the given ray and circle. The order of the elements in the
+ * returned array are determined by which intersection is closest to the origin of the
+ * ray. I.e. starting at the origin of the ray (x, y), travelling in angle direction,
+ * the first intersection will be first in the array, the second second, etc.
  */
 export function getRayIntersections(x, y, angle, m, r, p, q) {
 	const x1 = x;

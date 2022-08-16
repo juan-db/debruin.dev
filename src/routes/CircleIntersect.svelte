@@ -3,10 +3,9 @@
 
 	import {onMount} from "svelte";
 
-	import NumberWithSlider from "../../components/NumberWithSlider.svelte";
-	import themes from './_helpers/themes';
-	import {strokeCircle, strokeLine, strokeLineSegment, clear} from './_helpers/drawing';
-	import {getLineIntersections, getRayIntersections, toRadians} from './_helpers/math'
+	import NumberWithSlider from "/src/lib/NumberWithSlider.svelte";
+	import {strokeCircle, strokeLine, strokeLineSegment, clear} from '/src/lib/circle-intersect/drawing.js';
+	import {getLineIntersections, getRayIntersections, toRadians} from '/src/lib/circle-intersect/math.js'
 
 	let mounted = false;
 
@@ -42,28 +41,18 @@
 		redraw();
 	}
 
-	let body;
 	let canvas;
 	let parameters;
 	let ctx;
 
-	let themeName = 'dark';
-	let theme;
-	$: setTheme(themeName);
-
-	function setTheme(name) {
-		if (!mounted) {
-			return;
-		}
-
-		theme = themes[name] || themes['dark'];
-
-		const root = document.querySelector(':root');
-		root.style.setProperty('--text-color', theme.textColor);
-		root.style.setProperty('--background-color', theme.clearColor);
-
-		redraw();
-	}
+	let theme = {
+		clearColor: '#242424',
+		textColor: '#E6F4F1',
+		lineColor: '#F2C57C',
+		circleColor: '#7FB685',
+		axesColor: '#444',
+		intersectionColor: '#BF3F3C'
+	};
 
 	onMount(() => {
 		ctx = canvas.getContext('2d');
@@ -79,8 +68,6 @@
 		ctx.scale(1.4, -1.4);
 
 		mounted = true;
-
-		setTheme(themeName);
 
 		redraw();
 	});
@@ -133,81 +120,6 @@
 	<title>Intersection toy - Juan de Bruin</title>
 </svelte:head>
 
-<style>
-	.root-container {
-		max-width: 600px;
-
-		display: flex;
-		flex-direction: column;
-	}
-
-	canvas#circle-line {
-		max-width: 600px;
-		max-height: 600px;
-
-		width: 100%;
-
-		margin-bottom: 26px;
-	}
-
-	@media (min-width: 1080px) {
-		.root-container {
-			max-width: 1130px;
-			min-width: 1130px;
-
-			flex-direction: row;
-			justify-content: space-between;
-
-			box-sizing: border-box;
-			padding: 0 0.8em;
-		}
-
-		canvas#circle-line {
-			margin-bottom: 0;
-		}
-	}
-
-	form#parameters {
-		max-width: 600px;
-		width: 100%;
-	}
-
-	.form-section {
-		margin-bottom: 14px;
-	}
-
-	.section-header-container {
-		margin-bottom: 6px;
-	}
-
-	.section-header {
-		display: inline;
-	}
-
-	div#additional-options > div {
-		margin-bottom: 8px;
-	}
-
-	.radio-container {
-		display: inline-flex;
-		align-items: center;
-		margin-right: 12px;
-	}
-
-	.radio-container input[type="radio"] {
-		margin: 0 6px 0 0;
-	}
-
-	/* Most of the inputs are contained in fieldsets, which have 12px of padding built in. This class is for inputs that
-	 * aren't in fieldsets so that the padding is consistent. Alternatively, I could remove left padding from fieldsets
-	 * and apply this class to all inputs, but for the moment this is fine. */
-	.input-container {
-		padding-left: 12px;
-	}
-</style>
-
-<svelte:body bind:this={body}/>
-
 <div class="flex-container">
 	<div class="root-container">
 		<canvas id="circle-line" width="600" height="600" bind:this={canvas}>
@@ -216,18 +128,18 @@
 
 		<form id="parameters" bind:this={parameters}>
 			<div class="form-section">
-				<fieldset>
+				<fieldset style="text-align: start;">
 					<legend>Which line type do you want?</legend>
 
 					<span class="radio-container">
-					<input id="line-line-type" type="radio" name="line-type" bind:group={lineEquation} value={true}>
-					<label for="line-line-type">Line</label>
-				</span>
+						<input id="line-line-type" type="radio" name="line-type" bind:group={lineEquation} value={true}>
+						<label for="line-line-type">Line</label>
+					</span>
 
 					<span class="radio-container">
-					<input id="ray-line-type" type="radio" name="line-type" bind:group={lineEquation} value={false}>
-					<label for="ray-line-type">Ray</label>
-				</span>
+						<input id="ray-line-type" type="radio" name="line-type" bind:group={lineEquation} value={false}>
+						<label for="ray-line-type">Ray</label>
+					</span>
 				</fieldset>
 			</div>
 
@@ -281,25 +193,81 @@
 					sliderAttrs={{step: 1, max: 250, min: -250}} bind:value={q}/>
 			</div>
 
-			<div id="additional-options" class="form-section">
-				<div class="section-header-container">
-					<h4 class="section-header">Additional options</h4>
-				</div>
-
-				<div class="input-container">
-					<label for="show-axes">Show axes</label>
-					<input id="show-axes" name="show-axes" type="checkbox" bind:checked={showAxes}>
-				</div>
-
-				<div class="input-container">
-					<label for="theme-select">Theme</label>
-					<select id="theme-select" name="theme" bind:value={themeName}>
-						<option value="light">Light</option>
-						<option value="dark" selected="selected">Dark</option>
-						<option value="high-contrast">High contrast</option>
-					</select>
-				</div>
+			<div class="input-container" style="text-align: start;">
+				<label for="show-axes">Show axes</label>
+				<input id="show-axes" name="show-axes" type="checkbox" bind:checked={showAxes}>
 			</div>
 		</form>
 	</div>
 </div>
+
+<style>
+	.root-container {
+		max-width: 600px;
+
+		display: flex;
+		flex-direction: column;
+	}
+
+	canvas#circle-line {
+		max-width: 600px;
+		max-height: 600px;
+
+		width: 100%;
+		height: auto;
+
+		margin-bottom: 26px;
+	}
+
+	@media (min-width: 1080px) {
+		.root-container {
+			max-width: 1130px;
+			min-width: 1130px;
+
+			flex-direction: row;
+			justify-content: space-between;
+
+			box-sizing: border-box;
+			padding: 0 0.8em;
+		}
+
+		canvas#circle-line {
+			margin-bottom: 0;
+		}
+	}
+
+	form#parameters {
+		max-width: 600px;
+		width: 100%;
+	}
+
+	.form-section {
+		margin-bottom: 14px;
+	}
+
+	.section-header-container {
+		margin-bottom: 6px;
+	}
+
+	.section-header {
+		display: inline;
+	}
+
+	.radio-container {
+		display: inline-flex;
+		align-items: center;
+		margin-right: 12px;
+	}
+
+	.radio-container input[type="radio"] {
+		margin: 0 6px 0 0;
+	}
+
+	/* Most of the inputs are contained in fieldsets, which have 12px of padding built
+	 * in. This class is for inputs that aren't in fieldsets so that the padding is
+	 * consistent. Alternatively, I could remove left padding from fieldsets and apply
+	 * this class to all inputs, but for the moment this is fine. */
+	.input-container {
+		padding-left: 12px;
+	}
+</style>
