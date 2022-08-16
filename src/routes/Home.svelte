@@ -42,15 +42,18 @@
 	<title>Juan de Bruin</title>
 </svelte:head>
 
-<Stars small={stars.small} medium={stars.medium} large={stars.large} />
+<!-- Container div so we can easily hide the stars elements in devtools. -->
+<div>
+	<Stars small={stars.small} medium={stars.medium} large={stars.large} />
+</div>
 
 <div class="body-container">
 	<h1>Hi! I'm Juan.</h1>
 
 	<p>
-		I'm a senior software developer experienced with the Microsoft web tech stack, but
-		with competency in plenty of languages and tech stacks, including Go, Java, Kotlin,
-		and C.
+		I'm a senior full-stack software developer experienced with the Microsoft web
+		tech stack, but with competency in plenty of languages and tech stacks,
+		including Go, Java, Kotlin, and C.
 	</p>
 
 	<p>My interests include computers, television, music, and mountain biking.</p>
@@ -71,10 +74,13 @@
 
 <style>
 	.body-container {
-		max-width: 650px;
+		max-width: 660px;
+
+		border: solid #444 1px;
+		border-radius: 8px;
 
 		/* We need a solid background to cover stars that overlap with the text. */
-		background-color: #242424;
-		padding: 5px;
+		background-color: #333;
+		padding: 0 26px;
 	}
 </style>

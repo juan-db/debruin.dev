@@ -46,7 +46,7 @@
 	let ctx;
 
 	let theme = {
-		clearColor: '#242424',
+		clearColor: '#151515',
 		textColor: '#E6F4F1',
 		lineColor: '#F2C57C',
 		circleColor: '#7FB685',
