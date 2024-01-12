@@ -3,9 +3,9 @@
 
 	import {onMount} from "svelte";
 
-	import NumberWithSlider from "/src/lib/NumberWithSlider.svelte";
-	import {strokeCircle, strokeLine, strokeLineSegment, clear} from '/src/lib/circle-intersect/drawing.js';
-	import {getLineIntersections, getRayIntersections, toRadians} from '/src/lib/circle-intersect/math.js'
+	import NumberWithSlider from "$lib/NumberWithSlider.svelte";
+	import {strokeCircle, strokeLine, strokeLineSegment, clear} from './drawing.js';
+	import {getLineIntersections, getRayIntersections, toRadians} from './math.js'
 
 	let mounted = false;
 
